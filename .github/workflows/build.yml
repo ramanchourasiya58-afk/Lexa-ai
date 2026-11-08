@@ -1,3 +1,4 @@
+
 name: Build LEXA AI APK
 
 on:
@@ -31,17 +32,18 @@ jobs:
       - name: Get Dependencies
         run: flutter pub get
 
-  - name: Build APK
-  env:
-    SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-    SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-  run: |
-    flutter build apk --release \
-      --dart-define=SUPABASE_URL=$SUPABASE_URL \
-      --dart-define=SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY
+      - name: Build APK
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          flutter build apk --release \
+            --dart-define=SUPABASE_URL=$SUPABASE_URL \
+            --dart-define=SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: LEXA-AI-APK
           path: build/app/outputs/flutter-apk/app-release.apk
+          
