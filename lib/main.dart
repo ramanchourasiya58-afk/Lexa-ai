@@ -199,3 +199,33 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+class AuthGate extends StatelessWidget {
+  final bool supabaseConnected;
+  final String? errorMessage;
+
+  const AuthGate({
+    super.key,
+    required this.supabaseConnected,
+    this.errorMessage,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<AuthState>(
+      stream: Supabase.instance.client.auth.onAuthStateChange,
+      builder: (context, snapshot) {
+        final session =
+            Supabase.instance.client.auth.currentSession;
+
+        if (session != null) {
+          return HomePage(
+            supabaseConnected: supabaseConnected,
+            errorMessage: errorMessage,
+          );
+        }
+
+        return const AuthPage();
+      },
+    );
+  }
+}
