@@ -51,10 +51,10 @@ class LexaApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'LEXA AI',
       theme: ThemeData.dark(),
-      home: HomePage(
-        supabaseConnected: supabaseConnected,
-        errorMessage: errorMessage,
-      ),
+     home: AuthGate(
+  supabaseConnected: supabaseConnected,
+  errorMessage: errorMessage,
+), 
     );
   }
 }
